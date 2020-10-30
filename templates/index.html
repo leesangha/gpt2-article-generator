@@ -2,6 +2,7 @@
 <html>
 
 <head>
+  <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
   <h1>Make fake news! </h1>
   <h3>(Using GPT-2-Article generator)</h3>
   <hr />
@@ -9,21 +10,34 @@
 
 <body>
   <div>
-    <label>Text</label><input type="text" id="text" />
-    <label>INITIAL CONTENT</label><input type="text" id="initial_content" />
-    <button id="submit">Submit</button>
+    <div>
+      <label>Title</label><input type="text" id="text" />
+    </div>
+    <div>
+      <label>INITIAL CONTENT</label><input type="text" id="initial_content" />
+      <button id="submit">Submit</button>
+    </div>
+    <div id="wrapper">
+      <div class="loading-spinner"></div>
+      <div class="loading-dots">
+        <div class="bounce"></div>
+        <div class="bounce2"></div>
+        <div class="bounce3"></div>
+      </div>
+    </div>
   </div>
-  <div >
-      <h1 style="color: #3F3F42;">US Election 2020: Trump and Biden duel in critical state of Florida</h1>
-      <div>
-        <img src="../static/clock.png"/ style="height: 12px;">
-        <span><time datetime="2020-10-30T03:51:47.000Z">1 hour ago</time></span>
-      </div>
-      <div style="color: #3F3F42;font-family: ReithSans,Helvetica,Arial,freesans,sans-serif;">
-        <p><b>US President Donald Trump and his Democratic White House challenger Joe Biden have held duelling rallies in the critical election state of Florida.</b></p>
-        <p id="output">Mr Biden told supporters: "You hold the power. If Florida goes blue [Democratic], it's over."</p>
-        <p>Celebrating soaring economic figures, Mr Trump, a Republican, said of his rival: "He's going to lock you down."</p>
-      </div>
+  <div>
+    <h1 id="title" style="color: #3F3F42;">US Election 2020: Trump and Biden duel in critical state of Florida</h1>
+    <div>
+      <img src="../static/clock.png" style="height: 12px;">
+      <span><time datetime="2020-10-30T03:51:47.000Z">1 hour ago</time></span>
+    </div>
+    <div style="color: #3F3F42;font-family: ReithSans,Helvetica,Arial,freesans,sans-serif;">
+      <p><b id="subtitle">US President Donald Trump and his Democratic White House challenger Joe Biden have held
+          duelling rallies in
+          the critical election state of Florida.</b></p>
+      <p id="output">Mr Biden told supporters: "You hold the power. If Florida goes blue [Democratic], it's over."</p>
+    </div>
   </div>
   <script>
     document.getElementById("submit").onclick = () => {
@@ -43,6 +57,7 @@
         .then((data) => {
           document.getElementById('output').innerHTML = data.message;
           console.log(data.message);
+          console.log(data.sentence);
         });
     };
   </script>
