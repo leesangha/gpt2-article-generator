@@ -87,7 +87,7 @@ def predict():
         #status=0
         result=req["output"]
         
-        return jsonify({"message": result,"sentence":7373}), 200
+        return jsonify({"message": result,"title":text,"subtitle":initial_content}), 200
 
     except Exception as e:
         print(e)
