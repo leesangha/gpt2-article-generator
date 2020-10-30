@@ -1,0 +1,9 @@
+FROM alpine:3.7
+
+WORKDIR /app/models
+
+COPY models /app/models
+
+WORKDIR /app/checkpoint
+
+COPY checkpoint/124M_article_generator_model /app/checkpoint/124M_article_generator_model

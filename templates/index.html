@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <h3>GPT-2 test(774M model)</h3>
+  <hr />
+</head>
+
+<body>
+  <div>
+    <label>Text</label><input type="text" id="text" />
+    <label>INITIAL CONTENT</label><input type="text" id="initial_content" />
+    <button id="submit">Submit</button>
+  </div>
+  <div id='output'>
+
+  </div>
+  <script>
+    document.getElementById("submit").onclick = () => {
+      const formData = new FormData();
+      var message = document.getElementById('text').value;
+      var content = document.getElementById('initial_content').value;
+      document.getElementById('text').value = '';
+      document.getElementById('initial_content').value = '';
+      formData.append("message", message);
+      formData.append("initial_content", content);
+
+      fetch("/predict", {
+          method: "POST",
+          body: formData,
+        })
+        .then((response) => response.json())
+        .then((data) => {
+          document.getElementById('output').innerHTML = data.message;
+          console.log(data.message);
+        });
+    };
+  </script>
+
+</html>
