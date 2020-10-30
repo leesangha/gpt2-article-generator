@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
+  <link rel="stylesheet" href="/static/css/style.css">
   <h1>Make fake news! </h1>
   <h3>(Using GPT-2-Article generator)</h3>
   <hr />
@@ -13,16 +13,13 @@
     <div>
       <label>Title</label><input type="text" id="text" />
     </div>
-    <div>
-      <label>INITIAL CONTENT</label><input type="text" id="initial_content" />
-      <button id="submit">Submit</button>
-    </div>
-    <div id="wrapper">
-      <div class="loading-spinner"></div>
-      <div class="loading-dots">
-        <div class="bounce"></div>
-        <div class="bounce2"></div>
-        <div class="bounce3"></div>
+    <div style="display: flex;">
+      <div>
+        <label>INITIAL CONTENT</label><input type="text" id="initial_content" />
+        <button id="submit">Submit</button>
+      </div>
+      <div id="wrapper" style="visibility: hidden;">
+        <div class="loading-spinner"></div>
       </div>
     </div>
   </div>
@@ -42,6 +39,7 @@
   <script>
     document.getElementById("submit").onclick = () => {
       const formData = new FormData();
+      document.getElementById('wrapper').style.visibility='visible';
       var message = document.getElementById('text').value;
       var content = document.getElementById('initial_content').value;
       document.getElementById('text').value = '';
@@ -55,6 +53,7 @@
         })
         .then((response) => response.json())
         .then((data) => {
+          document.getElementById('wrapper').style.visibility='hidden'
           document.getElementById('output').innerHTML = data.message;
           console.log(data.message);
           console.log(data.sentence);
