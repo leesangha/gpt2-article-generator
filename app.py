@@ -43,9 +43,7 @@ def handle_requests_by_batch():
 
             for request in requests_batch:
                 print('input :   '+request["input"][0])
-                print(type(request["input"][0]))
                 print('input :   '+request["input"][1])
-                print(type(request["input"][1]))
                 batch_outputs.append(
                  run(request["input"][0],request["input"][1])
                 )
@@ -88,7 +86,8 @@ def predict():
             return jsonify({"error": "Error output is something wrong"}), 500
         #status=0
         result=req["output"]
-        return jsonify({"message": result}), 200
+        
+        return jsonify({"message": result,"sentence":7373}), 200
 
     except Exception as e:
         print(e)
