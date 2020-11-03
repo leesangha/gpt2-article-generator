@@ -35,7 +35,8 @@
       <p><b id="subtitle">US President Donald Trump and his Democratic White House challenger Joe Biden have held
           duelling rallies in
           the critical election state of Florida.</b></p>
-      <p id="output" style="margin-left: 1rem;">The two presidential campaigns are scheduled to visit Florida on Tuesday, and the two campaigns
+      <p id="output" style="margin-left: 1rem;">The two presidential campaigns are scheduled to visit Florida on
+        Tuesday, and the two campaigns
         have been given by state officials and the state party. The two campaigns have been able to get by some
         delegates in Florida and in other states, but the campaign has been unable to get a majority of those delegates
         to support them. The two campaigns have been in contact with all of the state party leaders, state officials and
@@ -53,7 +54,7 @@
         scheduled to begin their campaign in early June. “We’re going to continue to work in Florida,” said state
         Democratic Party chairman Stu Ingraham, who spoke at the event. “We are focused on and the state party is doing
         very well. ” </p>
-      <ul >
+      <ul>
         Caption
         <li>The president will host South Carolina Gov. Nikki Haley in his closed office on April 29. </li>
       </ul>
@@ -62,6 +63,8 @@
   <script>
     document.getElementById("submit").onclick = () => {
       const formData = new FormData();
+      const button = document.querySelector('button');
+      button.disabled = true;
       document.getElementById('wrapper').style.visibility = 'visible';
       var message = document.getElementById('text').value;
       var content = document.getElementById('initial_content').value;
@@ -77,10 +80,13 @@
         .then((response) => response.json())
         .then((data) => {
           document.getElementById('wrapper').style.visibility = 'hidden'
-          document.getElementById('output').innerHTML = data.message;
+
           document.getElementById('title').innerHTML = data.title;
           document.getElementById('subtitle').innerHTML = data.subtitle;
-          console.log(data.message);
+          var msg = data.message.split('Caption');
+          document.getElementById('output').innerHTML = data.message.replace(data.title, ' ');
+          console.log(msg)
+          button.disabled = false;
         });
     };
   </script>
