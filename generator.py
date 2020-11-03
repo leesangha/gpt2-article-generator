@@ -79,14 +79,13 @@ class Generator:
                  num_words=1023):
         """Use gpt2 to generate an article based on a given title and initial content."""
         print('title  : ' + title)
-        print('initial_content ; ' + initial_content)
+        print('initial_content : ' + initial_content)
         if not initial_content:
             initial_content = ''
         samples = Gpt2Handler.get_instance().generate_as_tuple(title, initial_content, num_samples, num_words)
         samples_str = [sample[0] + '\n' + sample[1] for sample in samples]
         result=''
         for sample in samples_str:
-                #concat samples
                 result+=sample
         #print(result)        
         if print_output:  # Print each article to the console is specified to
