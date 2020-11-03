@@ -79,14 +79,19 @@
         })
         .then((response) => response.json())
         .then((data) => {
-          document.getElementById('wrapper').style.visibility = 'hidden'
+          try {
+            document.getElementById('wrapper').style.visibility = 'hidden'
 
-          document.getElementById('title').innerHTML = data.title;
-          document.getElementById('subtitle').innerHTML = data.subtitle;
-          var msg = data.message.split('Caption');
-          document.getElementById('output').innerHTML = data.message.replace(data.title, ' ');
-          console.log(msg)
-          button.disabled = false;
+            document.getElementById('title').innerHTML = data.title;
+            document.getElementById('subtitle').innerHTML = data.subtitle;
+            var msg = data.message.replace(data.title, ' ');
+            document.getElementById('output').innerHTML = msg;
+            msg = msg.message.split('Caption');
+            console.log(msg)
+            button.disabled = false;
+          } catch {
+            button.disabled = false;
+          }
         });
     };
   </script>
