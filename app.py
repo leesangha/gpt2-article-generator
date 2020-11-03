@@ -42,8 +42,6 @@ def handle_requests_by_batch():
             batch_outputs=[]
 
             for request in requests_batch:
-                print('input :   '+request["input"][0])
-                print('input :   '+request["input"][1])
                 batch_outputs.append(
                  run(request["input"][0],request["input"][1])
                 )
@@ -69,7 +67,6 @@ def main():
 @app.route("/predict", methods=["POST"])
 def predict():
     try:
-        print('predict')
         if requests_queue.qsize() >=1:
             return jsonify({"message":"Too Many Requests"}),429
         
