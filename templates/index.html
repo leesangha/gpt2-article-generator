@@ -11,11 +11,11 @@
 <body>
   <div>
     <div>
-      <label>Title</label><input type="text" id="text" />
+      <label>Title</label><input type="text" id="text" value="US election" />
     </div>
     <div style="display: flex;">
       <div>
-        <label>INITIAL CONTENT</label><input type="text" id="initial_content" />
+        <label>INITIAL CONTENT</label><input type="text" id="initial_content" value="US President Donald Trump" />
         <button id="submit">Submit</button>
       </div>
       <div id="wrapper" style="visibility: hidden;">
@@ -54,7 +54,7 @@
         scheduled to begin their campaign in early June. “We’re going to continue to work in Florida,” said state
         Democratic Party chairman Stu Ingraham, who spoke at the event. “We are focused on and the state party is doing
         very well. ” </p>
-      <ul>
+      <ul id="caption">
         Caption
         <li>The president will host South Carolina Gov. Nikki Haley in his closed office on April 29. </li>
       </ul>
@@ -80,16 +80,30 @@
         .then((response) => response.json())
         .then((data) => {
           try {
+            var msg = data.message.replace(data.title, ' ');
             document.getElementById('wrapper').style.visibility = 'hidden'
-
             document.getElementById('title').innerHTML = data.title;
             document.getElementById('subtitle').innerHTML = data.subtitle;
-            var msg = data.message.replace(data.title, ' ');
-            document.getElementById('output').innerHTML = msg;
-            msg = msg.message.split('Caption');
+
+            msg = msg.split('Caption');
+            document.getElementById('output').innerHTML = msg[0];
             console.log(msg)
+
+            //remove list
+            var ul = document.getElementById('caption');
+            while (ul.hasChildNodes()) {
+              ul.removeChild(ul.firstChild);
+            }
+
+            for (var i = 1; i < msg.length; i++) {
+              var li = document.createElement('li');
+              li.innerHTML = msg[i];
+              ul.appendChild(li);
+              console.log(msg[i]);
+            }
             button.disabled = false;
           } catch {
+            document.getElementById('wrapper').style.visibility = 'hidden';
             button.disabled = false;
           }
         });
