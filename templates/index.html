@@ -35,27 +35,39 @@
       <p><b id="subtitle">US President Donald Trump and his Democratic White House challenger Joe Biden have held
           duelling rallies in
           the critical election state of Florida.</b></p>
-      <p id="output" style="margin-left: 1rem;">The two presidential campaigns are scheduled to visit Florida on
+      <div id="output" style="margin-left:1rem;">
+        The two presidential campaigns are scheduled to visit Florida on
         Tuesday, and the two campaigns
         have been given by state officials and the state party. The two campaigns have been able to get by some
-        delegates in Florida and in other states, but the campaign has been unable to get a majority of those delegates
-        to support them. The two campaigns have been in contact with all of the state party leaders, state officials and
-        the state party, but no one has shared the details of their talks. The two campaigns are scheduled to return to
-        Florida on Tuesday for a press event between Trump and Biden and a rally with a bow toward the 2016 presidential
-        election floor. [In Florida, Trump, Clinton and Biden decamp for Florida] In Florida, Trump has been on a quest
-        to win a majority of the primary votes in the state, though he has been a constant presence at campaign rallies
+        delegates in Florida and in other states, but the campaign has been unable to get a majority of those
+        delegates
+        to support them. The two campaigns have been in contact with all of the state party leaders, state officials
+        and
+        the state party, but no one has shared the details of their talks. The two campaigns are scheduled to return
+        to
+        Florida on Tuesday for a press event between Trump and Biden and a rally with a bow toward the 2016
+        presidential
+        election floor. [In Florida, Trump, Clinton and Biden decamp for Florida] In Florida, Trump has been on a
+        quest
+        to win a majority of the primary votes in the state, though he has been a constant presence at campaign
+        rallies
         and on cable news shows. Trump has been a candidate in Florida, and he is leading in the polls in the state by
         an average of more than points. Democrats, meanwhile, have not been able to accomplish much in Florida, where
         both campaigns are scheduled to visit. “The only thing we can do is get the state party involved in the
-        process,” said state Democratic chairwoman Debbie Wasserman Schultz. “We’re going to communicate with the state
+        process,” said state Democratic chairwoman Debbie Wasserman Schultz. “We’re going to communicate with the
+        state
         party about how we can work together and get the state party involved in the process. ” Florida Democrats have
         been calling on state party leaders to attend the rally in the state, but no one has provided the details of
         their talks. The two campaigns are hoping to keep the momentum as they move on to Florida where they are
         scheduled to begin their campaign in early June. “We’re going to continue to work in Florida,” said state
-        Democratic Party chairman Stu Ingraham, who spoke at the event. “We are focused on and the state party is doing
-        very well. ” </p>
+        Democratic Party chairman Stu Ingraham, who spoke at the event. “We are focused on and the state party is
+        doing
+        very well. ”
+      </div>
+      <div>
+        <b>Caption</b>
+      </div>
       <ul id="caption">
-        Caption
         <li>The president will host South Carolina Gov. Nikki Haley in his closed office on April 29. </li>
       </ul>
     </div>
@@ -81,20 +93,28 @@
         .then((data) => {
           try {
             var msg = data.message.replace(data.title, ' ');
+            var output = document.getElementById('output');
             document.getElementById('wrapper').style.visibility = 'hidden'
             document.getElementById('title').innerHTML = data.title;
             document.getElementById('subtitle').innerHTML = data.subtitle;
 
+            // Array
             msg = msg.split('Caption');
-            document.getElementById('output').innerHTML = msg[0];
-            console.log(msg)
+            var sentence = msg[0].split('.');
+            console.log(sentence.length);
+            output.innerHTML = '';
+
+            sentence.forEach(element => {
+              var p = document.createElement('p');
+              p.innerHTML = element + '.';
+              output.appendChild(p);
+            });
 
             //remove list
             var ul = document.getElementById('caption');
             while (ul.hasChildNodes()) {
               ul.removeChild(ul.firstChild);
             }
-
             for (var i = 1; i < msg.length; i++) {
               var li = document.createElement('li');
               li.innerHTML = msg[i];
