@@ -23,7 +23,7 @@
       </div>
     </div>
   </div>
-  <div>
+  <div style="width:80%; margin-left: 3%; border: 1px #3F3F42 solid;">
     <hr>
     <h1 id="title" style="color: #3F3F42;">US Election 2020: Trump and Biden duel in critical state of Florida</h1>
     <hr>
@@ -35,7 +35,7 @@
       <p><b id="subtitle">US President Donald Trump and his Democratic White House challenger Joe Biden have held
           duelling rallies in
           the critical election state of Florida.</b></p>
-      <div id="output" style="margin-left:1rem;">
+      <div id="output" style="margin-left:1rem; ">
         The two presidential campaigns are scheduled to visit Florida on
         Tuesday, and the two campaigns
         have been given by state officials and the state party. The two campaigns have been able to get by some
@@ -64,6 +64,7 @@
         doing
         very well. ”
       </div>
+      <hr>
       <div>
         <b>Caption</b>
       </div>
@@ -96,13 +97,15 @@
             var output = document.getElementById('output');
             document.getElementById('wrapper').style.visibility = 'hidden'
             document.getElementById('title').innerHTML = data.title;
-            document.getElementById('subtitle').innerHTML = data.subtitle;
 
             // Array
             msg = msg.split('Caption');
             var sentence = msg[0].split('.');
+            sentence.pop();
             console.log(sentence.length);
             output.innerHTML = '';
+            document.getElementById('subtitle').innerHTML = sentence[0] + '.';
+            sentence.splice(0, 1);
 
             sentence.forEach(element => {
               var p = document.createElement('p');
