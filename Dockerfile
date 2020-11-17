@@ -8,12 +8,13 @@ RUN apt-get update && apt-get install -y \
 
 WORKDIR /app
 
-COPY requirements-no-gpu.txt /app
+COPY requirements.txt /app
 
 RUN pip3 install --upgrade pip setuptools
-RUN pip3 install -r requirements-no-gpu.txt
+RUN pip3 install -r requirements.txt
 RUN mkdir /app/models
 COPY --from=build /app/models/ /app/models
+COPY --from=build /app/checkpoint/ /app/checkpoint
 
 COPY . /app
 
