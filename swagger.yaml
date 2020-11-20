@@ -1,0 +1,48 @@
+openapi: 3.0.1
+
+info:
+  title: ainize-KoGPT-2-chatbot-swagger
+  description: |
+    GPT2 Article Generator  \
+    Send title and initial content, receive a reply from the finetuned model .
+    ---
+      How to use:
+      * Set title and initial content
+      * reply a response that includes title, subtitle, content.
+  contact:
+    name: Ainizer - Sang-ha Lee
+  version: "0.1"
+  license:
+    name: "MIT"
+    url: https://github.com/psi1104/KoGPT2-chatbot/blob/master/LICENSE
+
+servers:
+  - url: https://master-gpt2-article-generator-leesangha.endpoint.ainize.ai/
+
+paths:
+  /gpt2-chat:
+    post:
+      requestBody:
+        required: true
+        description: "Send text, receive a reply from the chatbot."
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                text:
+                  type: string
+
+      responses:
+        "200":
+          description: success
+          content:
+            text/html:
+              schema:
+                type: string
+
+        "400":
+          description: Bad Request
+
+        "500":
+          description: Server side error
