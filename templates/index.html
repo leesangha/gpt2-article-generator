@@ -23,30 +23,39 @@
     <span>GPT NEWS </span>
   </div>
   <div class="select">
-    <div class="item">Go to #GPT-2</div>
-    <div class="item">Go to #Ainizer</div>
-    <div class="item">Go to #Python</div>
-    <div class="item">Go to #Golang</div>
+    <div class="item1"><a href="https://ainize.ai/explore?category=gpt-2" target="_blank">Go to #GPT-2</a></div>
+    <div class="item2"><a href="https://ainize.ai/explore?category=featured" target="_blank">Go to #Featured</a></div>
+    <div class="item3"><a href="https://ainize.ai/explore?category=popular" target="_blank">Go to #Popular</a></div>
+    <div class="item4"><a href="https://ainize.ai/explore?category=recent" target="_blank">Go to #Recent</a></div>
   </div>
 </head>
 
 <body>
+
   <div class="intro">
-    <div style="margin-top:1rem;">이 프로젝트는 gpt2모델을 article형식으로
-      fine-tuning한 모델을 사용하였습니다.</div>
-    <ul>
-      <li>1. 제목과 기사의 첫부분이 될 내용을 입력해주세요</li>
-      <li>2. 기다립니다. (1분 20초정도 소요됩니다)</li>
-    </ul>
-    <div>
-      <label>Title</label><input type="text" id="text" value="US election" style="width: 498px; height: 44px;border: 2px solid #B090FC; box-shadow: inset 0 4px 7px 0 rgba(176,144,252,0.5);
-        font-weight: 600;
-        font-size:20px" />
-    </div>
-    <div style="display: flex;">
+    <div class="title_box" style="display: flex;">
       <div>
-        <label>INITIAL CONTENT</label><input type="text" id="initial_content" value="US President Donald Trump" />
-        <button id="submit">Submit</button>
+        <div class="label">
+          <strong>TITLE</strong>
+        </div>
+        <input type="text" id="text" value="US election" />
+      </div>
+      <div class="help">
+        <span style="font-size: 0.7rem;">이 프로젝트는 gpt2모델을 article형식으로 fine-tuning한 모델을 사용하였습니다.</span>
+        <li>1. 제목과 기사의 첫부분이 될 내용을 입력해주세요</li>
+        <li>2.완성되지 않은 문장을 content에 넣어야 실패확률이 적습니다.</li>
+        <li>3. 기다립니다. (1분 20초정도 소요됩니다)</li>
+      </div>
+    </div>
+    <div class="content_box" style="display: flex;">
+      <div>
+        <div class="label"><strong>CONTENT</strong> </div>
+        <div style="display: flex;">
+          <input type="text" id="initial_content" value="US President Donald Trump" />
+          <button id="submit">
+            <span class="btn_text">Make News</span>
+          </button>
+        </div>
       </div>
       <div id="wrapper" style="visibility: hidden;">
         <div class="loading-spinner"></div>
@@ -61,7 +70,7 @@
       <hr>
       <div>
         <img src="../static/clock.png" style="height: 12px;">
-        <span><time datetime="2020-10-30T03:51:47.000Z">1 hour ago</time></span>
+        <span id="time">1 hour ago</span>
       </div>
       <div style="color: #3F3F42;font-family: ReithSans,Helvetica,Arial,freesans,sans-serif;">
         <p><b id="subtitle">US President Donald Trump and his Democratic White House challenger Joe Biden have held
@@ -105,9 +114,34 @@
         </ul>
       </div>
     </div>
-    <div style="width: 20%; margin-left:1rem;">
-      <div><span>Explore Other project</span></div>
-      <div><span>hi</span></div>
+    <div class="side" style="width: 20%; margin-left:1rem;">
+      <div class="side_news">
+        <span><b>Explore Other project</b></span>
+      </div>
+      <div class="project">
+        <a href="https://kubecon-tabtab-ainize-team.endpoint.ainize.ai/" target="_blank">
+          <img src="../static/Tabtab.png" />
+        </a>
+      </div>
+      <div class="project">
+        <a href="https://master-ainized-detectron2-gkswjdzz.endpoint.ainize.ai" target="_blank">
+          <img src="../static/Detectron.png" />
+        </a>
+      </div>
+      <div class="project">
+        <a href="https://master-hi-dt-psi1104.endpoint.ainize.ai/" target="_blank">
+          <img src="../static/Hidt.png" /> </a>
+      </div>
+      <div class="project">
+        <a href="https://master-face-mask-detection-woomurf.endpoint.ainize.ai/" target="_blank">
+          <img src="../static/Facemaskdetection.png" />
+        </a>
+      </div>
+      <div class="project">
+        <a href="https://master-de-oldify-kmswlee.endpoint.ainize.ai/" target="_blank">
+          <img src="../static/Deoldify.png" />
+        </a>
+      </div>
     </div>
   </div>
 
@@ -124,6 +158,7 @@
       formData.append("message", message);
       formData.append("initial_content", content);
 
+      var start = new Date().getTime();
       fetch("/predict", {
           method: "POST",
           body: formData,
@@ -131,6 +166,9 @@
         .then((response) => response.json())
         .then((data) => {
           try {
+            var elapsed = new Date().getTime() - start;
+            var minute = parseInt(elapsed) / 60000;
+            document.getElementById('time').innerHTML = `${minute} minnutes ago`;
             var msg = data.message.replace(data.title, ' ');
             var output = document.getElementById('output');
             document.getElementById('wrapper').style.visibility = 'hidden'
