@@ -167,7 +167,7 @@
         .then((data) => {
           try {
             var elapsed = new Date().getTime() - start;
-            var minute = parseInt(elapsed) / 60000;
+            var minute = Math.round(parseInt(elapsed) / 60000);
             document.getElementById('time').innerHTML = `${minute} minnutes ago`;
             var msg = data.message.replace(data.title, ' ');
             var output = document.getElementById('output');
